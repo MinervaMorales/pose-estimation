@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ml5 from 'ml5';
 
+var classifier: any;
+
 @Component({
   selector: 'app-pose-detection',
   templateUrl: './pose-detection.component.html',
@@ -22,11 +24,12 @@ export class PoseDetectionComponent implements OnInit
   public brain: any;
   public showVideo: boolean = false;
 
+
   public constructor() { }
 
   public ngOnInit() 
   {
-
+    this.preload();
   }
 
 
@@ -48,6 +51,8 @@ export class PoseDetectionComponent implements OnInit
             this.poseNet.on('pose', (poses)=>{ this.gotPoses(poses)});
             
        //     this.buildNeuralNet();
+
+    
           });
         }
      // });
@@ -59,6 +64,15 @@ export class PoseDetectionComponent implements OnInit
     
   }
 
+  preload()
+  {
+    classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/Bppzsu6w/model.json', function(respons, error){
+      console.log("IMAGE CLASSIFIER READY");
+      console.log(respons);
+      console.log(error);
+    });
+  }
+
   pause()
   {
     this.video.nativeElement.pause();
@@ -66,6 +80,15 @@ export class PoseDetectionComponent implements OnInit
 
   play(){
     this.video.nativeElement.play();
+  }
+
+  classifyVideo(){
+    classifier.classify(this.video.nativeElement, function(response, error){
+      console.log("dentro de classify video");
+
+      console.log(response);
+      console.log(error);
+    })
   }
 //squad, lunge, plank, twist ruso
   public buildNeuralNet(): void 
