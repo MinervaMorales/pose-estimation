@@ -1,0 +1,45 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header text-center">
+          <h5 class="title">Pose Detection</h5>
+        </div> 
+
+        <div class="card-body">
+          <div class="places-buttons">
+            <div *ngIf="!showVideo"class="row">
+              <div class="col-lg-8 ml-auto mr-auto">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-4">
+                    <button class="btn btn-primary btn-block " (click)="setup()">Click here to start recording</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+              <canvas id="canvas" #canvas width="640" height="480"></canvas> 
+              <video id="video" #video width="640" height="480" playsinline style="display: none;  width: 640px; height: 480px"></video>
+            </div>
+
+            <div class="places-buttons">
+              <div *ngIf="showVideo"class="row">
+                <div class="col-lg-8 ml-auto mr-auto">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-md-4">
+                      <button class="btn btn-primary btn-block " (click)="pause()">Click here to pause recording</button>
+                    </div>
+                    <div class="col-md-4">
+                      <button class="btn btn-primary btn-block " (click)="play()">Click here to play recording</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
